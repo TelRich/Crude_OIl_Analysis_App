@@ -35,7 +35,7 @@ month_short = [ 'Feb', 'Apr', 'Jun', 'Aug', 'Oct', 'Nov', 'Dec']
 def add_year(price_year, color):
     price = price_year
     name = price[5:] + ' Price'
-    fig.add_trace(go.Scatter(x=data1.index, y=data1[price_year],
+    fig.add_trace(go.Scatter(x=data1.month, y=data1[price_year],
                             name=name, line=dict(color=color, 
   
                                                             width=3, dash='dot')))
@@ -52,10 +52,23 @@ add_year('Price2018', 'forestgreen')
 add_year('Price2021', 'darkgrey')
 fig.update_layout(title='Crude oil price with three years gap', width=750,
                   yaxis_title = 'Price (US$/Barrel)',
-                #   xaxis = dict(
-                #       tickvals = month_order, 
-                #       ticktext = month_short
-                #   )
+                  xaxis = dict(
+                      tickvals = month_order, 
+                      ticktext = month_short
+                  ),
+                  legend = dict(
+                    orientation='h',
+                    xanchor="right",
+                    x=1,
+                    font = dict(
+                      family="Courier",
+                      size=12,
+                      color='white'
+                    ),
+                    # bgcolor='olive',
+                    bordercolor='blue',
+                    borderwidth=.5
+                  )
                   )
 st.plotly_chart(fig, use_container_width=True)
 """
@@ -75,7 +88,7 @@ if st.checkbox('Show raw data', key='Prod'):
 def add_year(price_year, color):
     price = price_year
     name = price[4:] + ' Production'
-    fig.add_trace(go.Scatter(x=data2.index, y=data2[price_year],
+    fig.add_trace(go.Scatter(x=data2.month, y=data2[price_year],
                             name=name, line=dict(color=color, 
                                                             width=3, dash='dot')))
 fig = go.Figure()
@@ -88,10 +101,23 @@ add_year('Prod2021', 'darkgrey')
 
 fig.update_layout(title='Crude oil production with three years gap', width=850,
                   yaxis_title = 'Production (mbd)',
-                #   xaxis = dict(
-                #       tickvals = month_order, 
-                #       ticktext = month_short
-                #   )
+                  xaxis = dict(
+                      tickvals = month_order, 
+                      ticktext = month_short
+                  ),
+                   legend = dict(
+                    orientation='h',
+                    xanchor="right",
+                    x=0.9,
+                    font = dict(
+                      family="Courier",
+                      size=12,
+                      color='white'
+                    ),
+                    # bgcolor='olive',
+                    bordercolor='blue',
+                    borderwidth=.5
+                  )
                   )
 
 st.plotly_chart(fig,use_container_width=True)
