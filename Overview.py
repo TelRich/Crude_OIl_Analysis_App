@@ -63,7 +63,7 @@ fig.update_layout(title='Crude oil price with three years gap', width=750,
                     font = dict(
                       family="Courier",
                       size=12,
-                      color='white'
+                      # color='white'
                     ),
                     # bgcolor='olive',
                     bordercolor='blue',
@@ -112,7 +112,7 @@ fig.update_layout(title='Crude oil production with three years gap', width=850,
                     font = dict(
                       family="Courier",
                       size=12,
-                      color='white'
+                      # color='white'
                     ),
                     # bgcolor='olive',
                     bordercolor='blue',

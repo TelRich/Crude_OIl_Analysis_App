@@ -43,7 +43,7 @@ fig.update_layout(title='Summary of crude oil price by month', width=850,
                     font = dict(
                       family="Courier",
                       size=12,
-                      color='white'
+                    #   color='white'
                     ),
                     # bgcolor='olive',
                     bordercolor='blue',
@@ -86,7 +86,7 @@ fig.update_layout(title='Summary of crude oil production by month', width=850,
                     font = dict(
                       family="Courier",
                       size=12,
-                      color='white'
+                    #   color='white'
                     ),
                     # bgcolor='olive',
                     bordercolor='blue',
