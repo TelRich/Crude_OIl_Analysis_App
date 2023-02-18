@@ -7,17 +7,17 @@ month_order = ['January', 'February', 'March', 'April', 'May', 'June',
 month_short = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 
-st.subheader("Statistics summary of Crude Oil")
+st.subheader("Statistics Summary of Crude Oil")
 data = pd.read_csv('data/price_month.csv')
 
-if st.checkbox('Show raw data'):
+if st.checkbox('Show raw data', key='price'):
     st.subheader("Price by Month")
     st.write(data)
 
 
 # Plotting data
 def add_line(price, color):
-    fig.add_trace(go.Scatter(x=data.index, y=data[price],
+    fig.add_trace(go.Scatter(x=data.Month, y=data[price],
                             name=price, mode='lines+markers+text',
                             text = data[price], textposition='top center',
                             line=dict(color=color, 
@@ -35,6 +35,63 @@ fig.update_layout(title='Summary of crude oil price by month', width=850,
                   xaxis = dict(
                       tickvals = month_order, 
                       ticktext = month_short
-                  ))
+                  ),
+                   legend = dict(
+                    orientation='h',
+                    xanchor="right",
+                    x=0.8,
+                    font = dict(
+                      family="Courier",
+                      size=12,
+                      color='white'
+                    ),
+                    # bgcolor='olive',
+                    bordercolor='blue',
+                    borderwidth=.5
+                  )
+                  )
 fig.update_yaxes(showticklabels=False)
-st.plotly_chart(fig)
+st.plotly_chart(fig, use_container_width=True)
+
+data1 = pd.read_csv('data/prod_month.csv')
+if st.checkbox('Show raw data', key='prod'):
+    st.subheader('Production by Month')
+    st.write(data1)
+    
+# Plotting Data
+def add_line(price, color):
+    fig.add_trace(go.Scatter(x=data1.Month, y=data1[price],
+                            name=price, mode= 'lines+markers+text',
+                            text= data1[price], textposition='top center',
+                            line=dict(color=color, 
+                                      width=3, dash='dot'),
+                            textfont=dict(
+                                size=10
+                            )))
+fig = go.Figure()
+add_line('Min_Production', 'firebrick')
+add_line('Avg_Production', 'royalblue')
+add_line('Max_Production', 'forestgreen')
+
+fig.update_layout(title='Summary of crude oil production by month', width=850,
+                  yaxis_title = 'Production (mbd)',
+                  xaxis = dict(
+                      tickvals = month_order, 
+                      ticktext = month_short
+                  ),
+                   legend = dict(
+                    orientation='h',
+                    xanchor="right",
+                    x=0.9,
+                    font = dict(
+                      family="Courier",
+                      size=12,
+                      color='white'
+                    ),
+                    # bgcolor='olive',
+                    bordercolor='blue',
+                    borderwidth=.5
+                  )
+                  )
+fig.update_yaxes(showticklabels=False)
+st.plotly_chart(fig, use_container_width=True)
