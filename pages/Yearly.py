@@ -71,3 +71,23 @@ fig.update_layout(title='Summary of crude oil production by year', width=950,
                   )
                   )
 st.plotly_chart(fig, True)
+
+
+hide = """
+<style>
+thead tr th:first-child {display:none}
+tbody th {display:none}
+</style>
+"""
+
+st.markdown(hide, True)
+st.sidebar.subheader('Price Stats (US$/Barrel)')
+data3 = pd.read_csv('data/stat.csv', index_col=0)
+price = data3.iloc[:,:3]
+prod = data3.iloc[:, 4:7]
+exp = data3.iloc[:, 6:]
+st.sidebar.table(price)
+st.sidebar.subheader('Production Stats (mbd)')
+st.sidebar.table(prod)
+st.sidebar.subheader('Export Stats (mbd)')
+st.sidebar.table(exp)
