@@ -41,7 +41,7 @@ month_short = [ 'Feb', 'Apr', 'Jun', 'Aug', 'Oct', 'Nov', 'Dec']
 
 st.markdown("<h3> <center> Yearly Statistics Summary of Crude Oil</center></h1>", True)
 
-with st.expander('Crude Oil Price by Year', True):
+with st.expander('Summary of Crude Oil Price by Year', True):
   if st.checkbox('Show raw data', key='price'):
       st.subheader('Price by Year')
       st.write(data)
@@ -75,7 +75,7 @@ with st.expander('Crude Oil Price by Year', True):
   st.plotly_chart(fig, use_container_width=True) 
 
 
-with st.expander('Crude Oil Production by Year'):
+with st.expander('Summary of Crude Oil Production by Year'):
   if st.checkbox('Show raw data', key='prod'):
       st.subheader('Production by Year')
       st.write(data1)
