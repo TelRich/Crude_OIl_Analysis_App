@@ -80,9 +80,10 @@ tbody th {display:none}
 </style>
 """
 
+from Overview import load_data
+data3 = load_data()[3]
 st.markdown(hide, True)
 st.sidebar.subheader('Price Stats (US$/Barrel)')
-data3 = pd.read_csv('data/stat.csv', index_col=0)
 price = data3.iloc[:,:3]
 prod = data3.iloc[:, 4:7]
 exp = data3.iloc[:, 6:]
