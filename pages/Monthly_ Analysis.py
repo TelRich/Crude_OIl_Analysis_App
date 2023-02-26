@@ -41,7 +41,7 @@ def side_display():
   
 side_display()
 
-with st.expander('Crude Oil Price by Month', True):
+with st.expander('Summary of Crude Oil Price by Month', True):
     if st.checkbox('Show raw data', key='price'):
         st.subheader("Price by Month")
         st.write(data)
@@ -83,7 +83,7 @@ with st.expander('Crude Oil Price by Month', True):
     fig.update_yaxes(showticklabels=False)
     st.plotly_chart(fig, use_container_width=True)
 
-with st.expander('Crude Oil Production by Month'):
+with st.expander('Summary of Crude Oil Production by Month'):
     if st.checkbox('Show raw data', key='prod'):
         st.subheader('Production by Month')
         st.write(data1)
