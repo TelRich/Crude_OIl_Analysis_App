@@ -60,8 +60,7 @@ def side_display():
 
 side_display()
 
-month_order = ['February', 'April', 'June', 
-                'August', 'October', 'November', 'December']
+month_order = ['February', 'April', 'June', 'August', 'October', 'November', 'December']
 month_short = [ 'Feb', 'Apr', 'Jun', 'Aug', 'Oct', 'Nov', 'Dec']
 
 
