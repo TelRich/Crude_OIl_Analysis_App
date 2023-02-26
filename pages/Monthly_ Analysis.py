@@ -10,8 +10,8 @@ month_short = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'O
 
 st.subheader("Statistics Summary of Crude Oil")
 data = pd.read_csv('data/price_month.csv')
-
 data3 = load_data()[3]
+
 def side_display():
   hide = """
   <style>
