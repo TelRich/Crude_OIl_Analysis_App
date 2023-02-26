@@ -13,14 +13,31 @@ df = load_data()
 data = df[0]
 data1 = df[1]
 data2 = df[2]
+data3 = load_data()[3]
+
+def side_display():
+  hide = """
+  <style>
+  thead tr th:first-child {display:none}
+  tbody th {display:none}
+  </style>
+  """
+  st.markdown(hide, True)
+  st.sidebar.subheader('Price Stats (US$/Barrel)')
+  price = data3.iloc[:,:3]
+  prod = data3.iloc[:, 4:7]
+  exp = data3.iloc[:, 6:]
+  st.sidebar.table(price)
+  st.sidebar.subheader('Production Stats (mbd)')
+  st.sidebar.table(prod)
+  st.sidebar.subheader('Export Stats (mbd)')
+  st.sidebar.table(exp)
+side_display()
 
 month_order = ['February', 'April', 'June', 'August', 'October', 'November', 'December']
 month_short = [ 'Feb', 'Apr', 'Jun', 'Aug', 'Oct', 'Nov', 'Dec']
 
 st.subheader('Yearly Statistics Summary of Crude Oil')
-from Overview import side_display
-side_display()
-
 if st.checkbox('Show raw data', key='price'):
     st.subheader('Price by Year')
     st.write(data)
