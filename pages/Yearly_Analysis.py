@@ -33,6 +33,7 @@ def side_display():
   st.sidebar.table(prod)
   st.sidebar.subheader('Export Stats (mbd)')
   st.sidebar.table(exp)
+  
 side_display()
 
 month_order = ['February', 'April', 'June', 'August', 'October', 'November', 'December']
@@ -40,7 +41,7 @@ month_short = [ 'Feb', 'Apr', 'Jun', 'Aug', 'Oct', 'Nov', 'Dec']
 
 st.markdown("<h3> <center> Yearly Statistics Summary of Crude Oil</center></h1>", True)
 
-with st.expander('Summary of Crude Oil Price by Year', True):
+with st.expander('Crude Oil Price by Year', True):
   if st.checkbox('Show raw data', key='price'):
       st.subheader('Price by Year')
       st.write(data)
@@ -55,7 +56,7 @@ with st.expander('Summary of Crude Oil Price by Year', True):
   add_line('Avg_Price', 'royalblue')
   add_line('Max_Price', 'forestgreen')
 
-  fig.update_layout(title='Summary of crude oil price by year', width=950,
+  fig.update_layout(title='Crude oil price by year', width=950,
                     yaxis_title = 'Price (US$/Barrel)',
                     legend = dict(
                       orientation='h',
@@ -74,7 +75,7 @@ with st.expander('Summary of Crude Oil Price by Year', True):
   st.plotly_chart(fig, use_container_width=True) 
 
 
-with st.expander('Summary of Crude Oil Production by Year'):
+with st.expander('Crude Oil Production by Year'):
   if st.checkbox('Show raw data', key='prod'):
       st.subheader('Production by Year')
       st.write(data1)
@@ -89,7 +90,7 @@ with st.expander('Summary of Crude Oil Production by Year'):
   add_line('Avg_Production', 'royalblue')
   add_line('Max_Production', 'forestgreen')
 
-  fig.update_layout(title='Summary of crude oil production by year', width=950,
+  fig.update_layout(title='Crude oil production by year', width=950,
                     yaxis_title = 'Production (mbd)',
                     legend = dict(
                       orientation='h',
