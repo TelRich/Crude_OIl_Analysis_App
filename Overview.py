@@ -21,11 +21,18 @@ crude oil and petroleum products imports and over 40% of Nigeria exports.
 
 st.image("https://cdn08.allafrica.com/download/pic/main/main/csiid/00410084:4f39f9cb5c0f3b30f3087c8a62f45009:arc614x376:w735:us1.jpg")
 
+@st.cache_data
+def load_data():
+  data = pd.read_csv('data/export_by_yr.csv')
+  data1 = pd.read_csv('data/price_3_yrs.csv')
+  data2 = pd.read_csv('data/prod_price_diff.csv')
+  data3 = pd.read_csv('data/stat.csv', index_col=0)
+  return [data, data1, data2, data3]
 
-data = pd.read_csv('data/export_by_yr.csv')
-data1 = pd.read_csv('data/price_3_yrs.csv')
-data2 = pd.read_csv('data/prod_price_diff.csv')
-
+data=load_data()[0]
+data1=load_data()[1]
+data2=load_data()[2]
+data3=load_data()[3]
 
 month_order = ['February', 'April', 'June', 
                 'August', 'October', 'November', 'December']
@@ -134,7 +141,6 @@ tbody th {display:none}
 
 st.markdown(hide, True)
 st.sidebar.subheader('Price Stats (US$/Barrel)')
-data3 = pd.read_csv('data/stat.csv', index_col=0)
 price = data3.iloc[:,:3]
 prod = data3.iloc[:, 4:7]
 exp = data3.iloc[:, 6:]
