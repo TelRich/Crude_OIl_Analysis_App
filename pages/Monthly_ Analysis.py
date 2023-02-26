@@ -11,7 +11,9 @@ st.subheader("Statistics Summary of Crude Oil")
 data = pd.read_csv('data/price_month.csv')
 
 from Overview import side_display
-side_display()
+from Overview import load_data as ld
+
+side_display(ld()[3])
 
 if st.checkbox('Show raw data', key='price'):
     st.subheader("Price by Month")
@@ -98,10 +100,3 @@ fig.update_layout(title='Summary of crude oil production by month', width=850,
                   )
 fig.update_yaxes(showticklabels=False)
 st.plotly_chart(fig, use_container_width=True)
-
-hide = """
-<style>
-thead tr th:first-child {display:none}
-tbody th {display:none}
-</style>
-"""
