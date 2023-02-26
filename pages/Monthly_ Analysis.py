@@ -8,16 +8,18 @@ month_order = ['January', 'February', 'March', 'April', 'May', 'June',
 month_short = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 
-st.markdown("<h3 align='center'> Statistics Summary of Crude Oil</h3>", True)
+st.markdown("<h2 align='center'> Statistics Summary of Crude Oil</h2>", True)
 
 @st.cache_data
 def ld_data():
     data = pd.read_csv('data/price_month.csv')
     data1 = pd.read_csv('data/prod_month.csv')
-    return [data, data1]
+    data2 = pd.read_csv('data/mnth_diff.csv')
+    return [data, data1, data2]
 
 data = ld_data()[0]
 data1 = ld_data()[1]
+data2 = ld_data()[2]
 data3 = load_data()[3]
 
 @st.cache_data
@@ -38,6 +40,8 @@ def side_display():
   st.sidebar.table(prod)
   st.sidebar.subheader('Export Stats (mbd)')
   st.sidebar.table(exp)
+  st.sidebar.image("https://cdn08.allafrica.com/download/pic/main/main/csiid/00410084:4f39f9cb5c0f3b30f3087c8a62f45009:arc614x376:w735:us1.jpg")
+
   
 side_display()
 
@@ -125,3 +129,23 @@ with st.expander('Summary of Crude Oil Production by Month'):
                     )
     fig.update_yaxes(showticklabels=False)
     st.plotly_chart(fig, use_container_width=True)
+    
+with st.expander('Changes in Production between 2021 and 2022'):
+    if st.checkbox('Show raw data', key='mnth_diff'):
+        st.subheader('Production in 2021 and 2022')
+        st.write(data2)
+    
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=data2.month, y=data2.Percentage_change, text=data2.Percentage_change))
+    fig.update_layout(title='Percentage change of crude oil production between 2021 and 2022',
+                    yaxis_title= 'Pecentage change', width= 700,
+                    xaxis= dict(
+                        tickvals = month_order,
+                        ticktext= month_short
+                    ))
+    fig.update_yaxes(showticklabels=False)
+    st.plotly_chart(fig, True)
+    st.markdown("""<center>
+    The above bar chart is showing the percentage difference between months in 2021 and months in 2022. Production increase by 4% in 2022 compared to 
+    January in 2021, afterwards there has not been a positive difference between other months.
+    </center>""", True)
