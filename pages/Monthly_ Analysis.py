@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+from Overview import load_data
 
 month_order = ['January', 'February', 'March', 'April', 'May', 'June', 
                'July', 'August', 'September', 'October', 'November', 'December']
@@ -10,8 +11,24 @@ month_short = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'O
 st.subheader("Statistics Summary of Crude Oil")
 data = pd.read_csv('data/price_month.csv')
 
-from Overview import side_display
-# from Overview import load_data as ld
+data3 = load_data()[3]
+def side_display():
+  hide = """
+  <style>
+  thead tr th:first-child {display:none}
+  tbody th {display:none}
+  </style>
+  """
+  st.markdown(hide, True)
+  st.sidebar.subheader('Price Stats (US$/Barrel)')
+  price = data3.iloc[:,:3]
+  prod = data3.iloc[:, 4:7]
+  exp = data3.iloc[:, 6:]
+  st.sidebar.table(price)
+  st.sidebar.subheader('Production Stats (mbd)')
+  st.sidebar.table(prod)
+  st.sidebar.subheader('Export Stats (mbd)')
+  st.sidebar.table(exp)
 side_display()
 
 if st.checkbox('Show raw data', key='price'):
