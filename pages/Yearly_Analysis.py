@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
-from Overview import load_data
+from Overview import load_data as ld
 
 @st.cache_data
 def load_data():
@@ -14,7 +14,7 @@ df = load_data()
 data = df[0]
 data1 = df[1]
 data2 = df[2]
-data3 = load_data()[3]
+data3 = ld()[3]
 
 def side_display():
   hide = """
