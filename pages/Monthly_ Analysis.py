@@ -11,9 +11,8 @@ st.subheader("Statistics Summary of Crude Oil")
 data = pd.read_csv('data/price_month.csv')
 
 from Overview import side_display
-from Overview import load_data as ld
-
-side_display(ld()[3])
+# from Overview import load_data as ld
+side_display()
 
 if st.checkbox('Show raw data', key='price'):
     st.subheader("Price by Month")
