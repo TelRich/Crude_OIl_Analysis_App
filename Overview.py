@@ -39,14 +39,13 @@ data2=load_data()[2]
 data3=load_data()[3]
 data4 = load_data()[4]
 
-hide = """
-<style>
-thead tr th:first-child {display:none}
-tbody th {display:none}
-</style>
-"""
-
 def side_display():
+  hide = """
+  <style>
+  thead tr th:first-child {display:none}
+  tbody th {display:none}
+  </style>
+  """
   st.markdown(hide, True)
   st.sidebar.subheader('Price Stats (US$/Barrel)')
   price = data3.iloc[:,:3]
