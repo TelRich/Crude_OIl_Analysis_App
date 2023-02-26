@@ -2,9 +2,24 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-data = pd.read_csv('data/price_year.csv', index_col=0)
+@st.cache_data
+def load_data():
+  data = pd.read_csv('data/price_year.csv', index_col=0)
+  data1 = pd.read_csv('data/prod_year.csv')
+  data2 = pd.read_csv('data/2021vs2022.csv')
+  return [data, data1, data2]
+
+df = load_data()
+data = df[0]
+data1 = df[1]
+data2 = df[2]
+
+month_order = ['February', 'April', 'June', 'August', 'October', 'November', 'December']
+month_short = [ 'Feb', 'Apr', 'Jun', 'Aug', 'Oct', 'Nov', 'Dec']
 
 st.subheader('Yearly Statistics Summary of Crude Oil')
+from Overview import side_display
+side_display()
 
 if st.checkbox('Show raw data', key='price'):
     st.subheader('Price by Year')
@@ -38,7 +53,7 @@ fig.update_layout(title='Summary of crude oil price by year', width=950,
                   )
 st.plotly_chart(fig, use_container_width=True) 
 
-data1 = pd.read_csv('data/prod_year.csv')
+
 
 if st.checkbox('Show raw data', key='prod'):
     st.subheader('Production by Year')
@@ -59,7 +74,7 @@ fig.update_layout(title='Summary of crude oil production by year', width=950,
                   legend = dict(
                     orientation='h',
                     xanchor="right",
-                    x=0.85,
+                    x=0.82,
                     font = dict(
                       family="Courier",
                       size=12,
@@ -72,23 +87,44 @@ fig.update_layout(title='Summary of crude oil production by year', width=950,
                   )
 st.plotly_chart(fig, True)
 
+if st.checkbox('Show raw data', key='2021vs2022'):
+  st.subheader('Comparing 2021 Crude Oil Production with 2022')
+  st.write(data2)
 
-hide = """
-<style>
-thead tr th:first-child {display:none}
-tbody th {display:none}
-</style>
-"""
+# Visualizing data
+def add_line(total_prod, color):
+    ex = total_prod
+    name = ex[-4:] + ' Production'
+    fig.add_trace(go.Scatter(x=data2.month, y=data2[total_prod],
+                            name=name, mode='lines+markers+text',
+                            text=data2[total_prod], textposition='bottom left',
+                            line=dict(color=color, 
+                                        width=3, dash='dot'),
+                            textfont=dict(size=10)))
+fig = go.Figure()
+add_line('total_prod_2021', 'royalblue')
+add_line('total_prod_2022', 'firebrick')
 
-from Overview import load_data
-data3 = load_data()[3]
-st.markdown(hide, True)
-st.sidebar.subheader('Price Stats (US$/Barrel)')
-price = data3.iloc[:,:3]
-prod = data3.iloc[:, 4:7]
-exp = data3.iloc[:, 6:]
-st.sidebar.table(price)
-st.sidebar.subheader('Production Stats (mbd)')
-st.sidebar.table(prod)
-st.sidebar.subheader('Export Stats (mbd)')
-st.sidebar.table(exp)
+
+fig.update_layout(title='Comparing year 2021 crude oil production with that of 2022', width=950,
+                  yaxis_title = 'Production (mbd)',
+                  xaxis= dict(
+                      tickvals= month_order,
+                      ticktext= month_short
+                  ),
+                  legend = dict(
+                    orientation='h',
+                    xanchor="right",
+                    x=0.82,
+                    font = dict(
+                      family="Courier",
+                      size=12,
+                    #   color='white'
+                    ),
+                    # bgcolor='olive',
+                    bordercolor='blue',
+                    borderwidth=.5
+                  )
+                  )
+fig.update_yaxes(showticklabels=False)
+st.plotly_chart(fig, True)
