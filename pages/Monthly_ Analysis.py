@@ -10,6 +10,9 @@ month_short = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'O
 st.subheader("Statistics Summary of Crude Oil")
 data = pd.read_csv('data/price_month.csv')
 
+from Overview import side_display
+side_display()
+
 if st.checkbox('Show raw data', key='price'):
     st.subheader("Price by Month")
     st.write(data)
@@ -102,15 +105,3 @@ thead tr th:first-child {display:none}
 tbody th {display:none}
 </style>
 """
-from Overview import load_data
-data3 = load_data()[3]
-st.markdown(hide, True)
-st.sidebar.subheader('Price Stats (US$/Barrel)')
-price = data3.iloc[:,:3]
-prod = data3.iloc[:, 4:7]
-exp = data3.iloc[:, 6:]
-st.sidebar.table(price)
-st.sidebar.subheader('Production Stats (mbd)')
-st.sidebar.table(prod)
-st.sidebar.subheader('Export Stats (mbd)')
-st.sidebar.table(exp)
