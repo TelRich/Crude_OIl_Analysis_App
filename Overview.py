@@ -39,7 +39,8 @@ data2=load_data()[2]
 data3=load_data()[3]
 data4 = load_data()[4]
 
-def side_display(x):
+@st.cache_data
+def side_display():
   hide = """
   <style>
   thead tr th:first-child {display:none}
@@ -48,16 +49,16 @@ def side_display(x):
   """
   st.markdown(hide, True)
   st.sidebar.subheader('Price Stats (US$/Barrel)')
-  price = x.iloc[:,:3]
-  prod = x.iloc[:, 4:7]
-  exp = x.iloc[:, 6:]
+  price = data3.iloc[:,:3]
+  prod = data3.iloc[:, 4:7]
+  exp = data3.iloc[:, 6:]
   st.sidebar.table(price)
   st.sidebar.subheader('Production Stats (mbd)')
   st.sidebar.table(prod)
   st.sidebar.subheader('Export Stats (mbd)')
   st.sidebar.table(exp)
 
-side_display(data3)
+side_display()
 
 month_order = ['February', 'April', 'June', 'August', 'October', 'November', 'December']
 month_short = [ 'Feb', 'Apr', 'Jun', 'Aug', 'Oct', 'Nov', 'Dec']
