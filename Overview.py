@@ -30,7 +30,9 @@ def load_data():
   data2 = pd.read_csv('data/prod_price_diff.csv')
   data3 = pd.read_csv('data/stat.csv', index_col=0)
   data4 = pd.read_csv('data/avg_com.csv')
-  return [data, data1, data2, data3, data4]
+  data5 = pd.read_csv('data/brief_stat.csv', index_col=0)
+  data6 = pd.read_csv('data/abv_80.csv')
+  return [data, data1, data2, data3, data4, data5, data6]
 
 
 data=load_data()[0]
@@ -38,14 +40,16 @@ data1=load_data()[1]
 data2=load_data()[2]
 data3=load_data()[3]
 data4 = load_data()[4]
+data6 = load_data()[6]
 
-def side_display():
-  hide = """
+hide = """
   <style>
   thead tr th:first-child {display:none}
   tbody th {display:none}
   </style>
   """
+  
+def side_display():
   st.markdown(hide, True)
   st.sidebar.subheader('Price Stats (US$/Barrel)')
   price = data3.iloc[:,:3]
@@ -62,6 +66,25 @@ side_display()
 month_order = ['February', 'April', 'June', 'August', 'October', 'November', 'December']
 month_short = [ 'Feb', 'Apr', 'Jun', 'Aug', 'Oct', 'Nov', 'Dec']
 
+st.markdown(hide, True)
+st.write('Data Summary')
+st.table(load_data()[5])
+with st.expander('Crude Oil Export Above 80% of Production'):
+  if st.checkbox('Show raw data'):
+    st.subheader('Year and Count of Crude Oil Export Over 80% of Production')
+    st.write(data6)
+  
+  # Plotting viz
+  fig = go.Figure()
+  fig.add_trace(go.Scatter(x=data6.Year, y=data6.Export_Count,
+                              mode= 'lines+markers+text',
+                              text= data6.Export_Count, textposition='top center',
+                              line=dict(color='forestgreen', 
+                                          width=3, dash='dot'),
+                              textfont=dict(size=13)))
+  fig.update_layout(title='Crude oil export above 80% of production', width=700)
+  fig.update_yaxes(showticklabels=False)
+  st.plotly_chart(fig, True)
 
 with st.expander('Crude Oil Price with Three Years Gap'):
   # Plotting Data
@@ -92,7 +115,7 @@ with st.expander('Crude Oil Price with Three Years Gap'):
                     legend = dict(
                       orientation='h',
                       xanchor="right",
-                      x=1,
+                      x=0.9,
                       font = dict(
                         family="Courier",
                         size=12,
@@ -198,3 +221,13 @@ with exp3:
   fig.update_yaxes(showticklabels=False)
   st.plotly_chart(fig, use_container_width=True)
 
+
+st.sidebar.markdown("""
+                    This project was completed using [**SQL**](https://www.w3schools.com/sql/) and the [**Python**](https://www.python.org/) 
+                    programming language. SQL was used to query the database for insights, and Python was used to present the results as a 
+                    dataframe and visualize them with Plotly interactive plots as needed.
+                    
+                    The data used for this analysis can be found on [Central Bank of Nigeria (CBN) Statistic section](https://www.cbn.gov.ng/rates/crudeoil.asp). 
+                    It contain 5 fields with 201 records.
+                    
+                    """)
