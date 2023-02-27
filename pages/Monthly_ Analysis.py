@@ -22,7 +22,7 @@ data1 = ld_data()[1]
 data2 = ld_data()[2]
 data3 = load_data()[3]
 
-@st.cache_data
+
 def side_display():
   hide = """
   <style>
