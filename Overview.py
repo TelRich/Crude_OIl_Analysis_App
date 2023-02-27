@@ -66,9 +66,19 @@ side_display()
 month_order = ['February', 'April', 'June', 'August', 'October', 'November', 'December']
 month_short = [ 'Feb', 'Apr', 'Jun', 'Aug', 'Oct', 'Nov', 'Dec']
 
-st.markdown(hide, True)
-st.write('Data Summary')
-st.table(load_data()[5])
+with st.expander('Data Summary', True):
+  st.markdown(hide, True)
+  st.table(load_data()[5])
+  st.markdown("""
+              A brief insights to the on the data.
+              1. The largest production, 2.88mbd was made in October 2010.
+              2. Based on the current data, Nigeria has not exported all the crude oil it produce
+              3. There are 22 count where the crude oil exported was less than 70% of the total 
+              production. Narrowing it down, these occured in 2020, 2021, and 2022 with 1, 12, and 9 count respectively
+  
+              """)
+
+
 with st.expander('Crude Oil Export Above 80% of Production'):
   if st.checkbox('Show raw data'):
     st.subheader('Year and Count of Crude Oil Export Over 80% of Production')
@@ -85,6 +95,11 @@ with st.expander('Crude Oil Export Above 80% of Production'):
   fig.update_layout(title='Crude oil export above 80% of production', width=700)
   fig.update_yaxes(showticklabels=False)
   st.plotly_chart(fig, True)
+  st.markdown("""
+              The last time Oil was exported above 80% of Production was in 2014. 
+              In 2006 and 2011, above 80% of Crude Oil produced was exprted in all months. 
+              
+              """)
 
 with st.expander('Crude Oil Price with Three Years Gap'):
   # Plotting Data
@@ -131,7 +146,7 @@ with st.expander('Crude Oil Price with Three Years Gap'):
 
   2012 looks like an ouliear but then, 
   we are viewing the year with three years gap. 
-  The price is clustered between 35 and 85(US%/Barrel).
+  The price is clustered between 35 and 85(US$/Barrel).
 
 
   """
@@ -181,7 +196,8 @@ with exp2:
   st.plotly_chart(fig,use_container_width=True)
   
   """
-  From the visual above, production started decreasing after 2012. 
+  From the visual above, production started decreasing after 2012. In 2021, Crude Oil produced was 
+  below 1.5mbd accross all month. This could be as a result of crude oil theft and vandalism in the nation 
   """
 
 exp3 = st.expander(label='Comparing Overall Average with Yearly Average')
@@ -220,6 +236,10 @@ with exp3:
                     )
   fig.update_yaxes(showticklabels=False)
   st.plotly_chart(fig, use_container_width=True)
+  st.markdown("""
+              Starting from 2016, the yearly average of crude oil exported has not pass the overall average of crude oil exported, 
+              and the gap is increasing. Do you think it will pass the mark in few years?
+              """)
 
 
 st.sidebar.markdown("""

@@ -33,13 +33,14 @@ def side_display():
   st.sidebar.table(prod)
   st.sidebar.subheader('Export Stats (mbd)')
   st.sidebar.table(exp)
+  st.sidebar.image("https://cdn08.allafrica.com/download/pic/main/main/csiid/00410084:4f39f9cb5c0f3b30f3087c8a62f45009:arc614x376:w735:us1.jpg")
   
 side_display()
 
 month_order = ['February', 'April', 'June', 'August', 'October', 'November', 'December']
 month_short = [ 'Feb', 'Apr', 'Jun', 'Aug', 'Oct', 'Nov', 'Dec']
 
-st.markdown("<h3> <center> Yearly Statistics Summary of Crude Oil</center></h1>", True)
+st.markdown("<h2> <center> Yearly Statistics Summary of Crude Oil</center></h2>", True)
 
 with st.expander('Summary of Crude Oil Price by Year', True):
   if st.checkbox('Show raw data', key='price'):
@@ -151,3 +152,6 @@ with st.expander('Comparing Year 2021 Crude Oil Production with Year 2022'):
                     )
   fig.update_yaxes(showticklabels=False)
   st.plotly_chart(fig, True)
+  """ The above charts depicts that production is decreasing. 
+  Will it increase next month? We don't know untill we have the data for that month.
+  """

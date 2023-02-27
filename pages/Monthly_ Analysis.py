@@ -86,6 +86,11 @@ with st.expander('Summary of Crude Oil Price by Month', True):
                     )
     fig.update_yaxes(showticklabels=False)
     st.plotly_chart(fig, use_container_width=True)
+    st.markdown("""
+                From the plot above, we can see that average price of crude oil
+                increase as the year starts and decrease towards the end.
+                
+                """)
 
 with st.expander('Summary of Crude Oil Production by Month'):
     if st.checkbox('Show raw data', key='prod'):
